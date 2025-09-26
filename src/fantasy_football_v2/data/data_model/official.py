@@ -11,12 +11,15 @@ from pydantic import (
 
 from datetime import datetime
 
+from pydantic.v1.errors import cls_kwargs
+
+
 class Official(BaseModel):
-    official_id: str = Field(
+    id: str = Field(
         min_length=1,
         frozen=True
     )
-    official_name: str = Field(
+    name: str = Field(
         min_length=1,
         frozen=True
     )
@@ -30,7 +33,27 @@ class Official(BaseModel):
         frozen=True
     )
 
-    # ToDo: Field constraight for "official_id", no spaces
     # 'official_id' should not have spaces
+    @field_validator(
+        'id',
+        mode='before'
+    )
+    def check_id(
+            cls,
+            v: str
+    ) -> str:
+        if " " in v:
+            raise ValueError(f"The official's id, {v}, should not contain spaces.")
 
-    # ToDo: Field constraint for 'position' to all caps
+        return v
+
+    # 'position' to all caps
+    @field_validator(
+        'position',
+        mode='before'
+    )
+    def uppercase_position(
+            cls,
+            v: str
+    ) -> str:
+        return v.upper()
