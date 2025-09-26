@@ -6,8 +6,18 @@ import nfl_data_py as nfl
 
 def generate_ref_df(
     # default to past 5 years including current year
-    years: List[int] = None
+    years: List[int]=None,
+    columns=None
 ):
+    # Default years to the past 5 years, including current year
+    if columns is None:
+        columns = [
+            'official_id',
+            'name',
+            'season',
+            'off_pos'
+        ]
+
     # Default years to the past 5 years, including current year
     if years is None:
         current_year = datetime.today().year
@@ -15,7 +25,24 @@ def generate_ref_df(
 
     # Get data from nfl_data_py
     df = nfl.import_officials(
-        years=years,
+        years=years
     )
+
+    # Re-order and keep specific columns
+    df = df[columns]
+
+    # drop duplicates (originally this was by game, so duplicates occur when that column was dropped)
+    df = df.drop_duplicates()
+
+    # Get a unique list of refs for the current year
+    current_refs = df.loc[
+        df['season'] == datetime.today().year,
+        "official_id"
+    ].unique()
+
+    # Filter df to include only current refs
+    df = df[
+        df["official_id"].isin(current_refs)
+    ]
 
     return df
