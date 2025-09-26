@@ -1,6 +1,6 @@
 """Example of creating the ref's dataframe
 """
-from src.fantasy_football_v2.data.generate_dataframes.ref_df import generate_ref_df
+from src.fantasy_football_v2.data.generate_dataframes.generate_ref_df import generate_ref_df
 
 # Generate the dataframe
 ref_df = generate_ref_df(

@@ -45,4 +45,12 @@ def generate_ref_df(
         df["official_id"].isin(current_refs)
     ]
 
+    # Rename columns
+    df = df.rename(
+        columns={
+            "official_id": "id",
+            "off_pos": "position"
+        }
+    )
+
     return df
