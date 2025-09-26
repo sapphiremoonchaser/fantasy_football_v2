@@ -1,7 +1,5 @@
 """Create ref data model
 """
-from Tools.scripts.pindent import reformat_string
-
 from src.fantasy_football_v2.data.generate_dataframes.generate_ref_df import generate_ref_df
 from src.fantasy_football_v2.data.data_model.ref import Ref
 
