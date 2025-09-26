@@ -1,7 +1,9 @@
-"""Official class representing Officials and their position by season.
+"""Ref class representing Ref's and their position by season. The goal is to get a list of ref's and their position by
+    season.
 
 Classes:
-    Official: A Pydantic model representing the official.
+    Ref: A Pydantic model representing the ref. A validator has been added to make sure id does not have any
+        spaces and a validator to make sure that position is all caps.
 """
 from pydantic import (
     BaseModel,
@@ -11,10 +13,16 @@ from pydantic import (
 
 from datetime import datetime
 
-from pydantic.v1.errors import cls_kwargs
 
+class Ref(BaseModel):
+    """A model representing nfl refs.
 
-class Official(BaseModel):
+    Args:
+        id (str): the ref_id from nfl.import_officials
+        name(str): the ref's name
+        season(int): the nfl season
+        position(str): The abbreviated position of the ref
+    """
     id: str = Field(
         min_length=1,
         frozen=True
@@ -42,8 +50,9 @@ class Official(BaseModel):
             cls,
             v: str
     ) -> str:
+        """Validate that id does not have any spaces. This helps keep me from getting name and id mixed up."""
         if " " in v:
-            raise ValueError(f"The official's id, {v}, should not contain spaces.")
+            raise ValueError(f"The ref's id, {v}, should not contain spaces.")
 
         return v
 
@@ -56,4 +65,5 @@ class Official(BaseModel):
             cls,
             v: str
     ) -> str:
+        """Uppercase position for consistency."""
         return v.upper()
