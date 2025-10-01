@@ -5,8 +5,7 @@ Classes:
 """
 from pydantic import (
     BaseModel,
-    Field,
-    field_validator
+    Field
 )
 
 from datetime import datetime
@@ -16,7 +15,7 @@ class Game(BaseModel):
 
     Args:
         game_id (str): game_id from nfl.import_schedules,
-            im the form seaso_wk_away_home (2025_01_DAL_PHI)
+            im the form season_wk_away_home (2025_01_DAL_PHI)
         season (int): the nfl season
         week (int): the nfl week
         referee (str): the name of the ref
