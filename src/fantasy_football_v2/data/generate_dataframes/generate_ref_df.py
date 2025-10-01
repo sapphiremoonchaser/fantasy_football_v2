@@ -9,7 +9,7 @@ def generate_ref_df(
     years: List[int]=None,
     columns=None
 ):
-    # Default years to the past 5 years, including current year
+    # Default column list
     if columns is None:
         columns = [
             'official_id',

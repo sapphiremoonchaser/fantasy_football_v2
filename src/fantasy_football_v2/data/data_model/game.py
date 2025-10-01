@@ -15,13 +15,13 @@ class Game(BaseModel):
     """A model representing nfl games.
 
     Args:
-        id (str): game_id from nfl.import_schedules,
+        game_id (str): game_id from nfl.import_schedules,
             im the form seaso_wk_away_home (2025_01_DAL_PHI)
         season (int): the nfl season
         week (int): the nfl week
         referee (str): the name of the ref
     """
-    id: (str) = Field(
+    game_id: (str) = Field(
         min_length=14,
         max_length=14,
         frozen=True
