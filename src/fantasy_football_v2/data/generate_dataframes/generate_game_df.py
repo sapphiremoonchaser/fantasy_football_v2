@@ -37,12 +37,15 @@ def generate_game_df(
     # Drop 'game_type' column
     df = df.drop(['game_type'], axis=1)
 
-    return df
+    #Combine 'away_team' and 'home_team' into one column with type List
+    df['teams'] = df[
+        ['away_team', 'home_team']].values.tolist()
 
-
-def generate_base_game_df(
-    years: List[int]=None
-    ):
-    df = generate_game_df()
+    df = df[[
+        'game_id',
+        'season',
+        'week',
+        'teams'
+    ]]
 
     return df
