@@ -38,3 +38,11 @@ def generate_game_df(
     df = df.drop(['game_type'], axis=1)
 
     return df
+
+
+def generate_base_game_df(
+    years: List[int]=None
+    ):
+    df = generate_game_df()
+
+    return df

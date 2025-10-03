@@ -4,7 +4,7 @@ from typing import List
 from datetime import datetime
 import nfl_data_py as nfl
 
-def generate_ref_df(
+def generate_weekly_points_df(
     # default to past 5 years including current year
     years: List[int]=None,
     columns=None
@@ -12,18 +12,20 @@ def generate_ref_df(
     # Default column list
     if columns is None:
         columns = [
-            'game_id',
             'season',
             'week',
+            'season_type',
             'player_id',
             'player_display_name',
+            'recent_team',
+            'opponent_team',
             'position',
             'fantasy_points_ppr'
         ]
 
     # Default years to the past 5 years, including current year
     if years is None:
-        current_year = datetime.today().year
+        current_year = datetime.today().year - 1
         years = [current_year - i for i in range(5)]
 
     # Get data from nfl_data_py
@@ -32,7 +34,11 @@ def generate_ref_df(
         downcast=True
     )
 
-    # Re-order and keep specific columns
-    df = df[columns]
+    # Filter the regular season games
+    df = df[
+        df["season_type"] == 'REG'
+    ]
+
+    
 
     return df
