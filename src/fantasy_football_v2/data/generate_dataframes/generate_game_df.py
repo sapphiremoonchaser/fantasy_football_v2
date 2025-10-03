@@ -45,7 +45,8 @@ def generate_game_df(
         'game_id',
         'season',
         'week',
-        'teams'
+        'teams',
+        'referee'
     ]]
 
     return df
