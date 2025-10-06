@@ -4,7 +4,7 @@ from typing import List
 from datetime import datetime
 import nfl_data_py as nfl
 
-def generate_pass_pbp_df(
+def generate_passer_df(
     # default to current year
     years: List[int]=None
 ):
