@@ -4,6 +4,8 @@ from typing import List
 from datetime import datetime
 import nfl_data_py as nfl
 
+from src.fantasy_football_v2.utilities.time_functions import get_current_season
+
 def generate_passer_df(
     # default to current year
     years: List[int]=None
@@ -32,11 +34,7 @@ def generate_passer_df(
 
     # Default years to current year
     if years is None:
-        current_month = datetime.today().month
-        if current_month in range(3,14):
-            years = datetime.today().year
-        else:
-            years = datetime.today().year - 1
+        years = get_current_season()
 
     # Get data frame from nfl_data_py
     df = nfl.import_ngs_data(
